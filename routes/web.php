@@ -17,9 +17,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/courses', 'CourseController@index');
-$router->post('/courses', 'CourseController@store');
-$router->get('/courses/{course}', 'CourseController@show');
-$router->put('/courses/{course}', 'CourseController@update');
-$router->patch('/courses/{course}', 'CourseController@update');
-$router->delete('/courses/{course}', 'CourseController@destroy');
+$router->group(['middleware' => ['cors']], function() use ($router){
+    $router->get('/courses', 'CourseController@index');
+    $router->post('/courses', 'CourseController@store');
+    $router->get('/courses/{course}', 'CourseController@show');
+    $router->put('/courses/{course}', 'CourseController@update');
+    $router->patch('/courses/{course}', 'CourseController@update');
+    $router->delete('/courses/{course}', 'CourseController@destroy');
+});
